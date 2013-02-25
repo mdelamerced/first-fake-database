@@ -18,21 +18,21 @@ exports.index = function(req, res) {
 	console.log("listings page requested");
 
 	var templateData = {
-		article : articles,
-		pageTitle : "News Articles (" + articles.length + ")"
+		article : article,
+		pageName : "News Articles (" + article.length + ")"
 	}
 
 	res.render('index.html', templateData);
 }
 
 /*
-	GET /astronauts/:astro_id
+	GET /article/:article_id
 */
 exports.detail = function(req, res) {
 
 	console.log("detail page requested for " + req.params.article_id);
 
-	//get the requested astronaut by the param on the url :astro_id
+	//get the requested article by the param on the url :astro_id
 	var article_id = req.params.article_id;
 	var currentArticle = getArticleById(article_id);
 
@@ -42,8 +42,8 @@ exports.detail = function(req, res) {
 
 	var templateData = {
 		article : currentArticle,
-		article : articles,
-		pageTitle : currentArticle.name
+		article : article,
+		pageName : currentArticle.name
 	}
 
 	res.render('detail.html', templateData);
@@ -72,65 +72,65 @@ exports.createArticle = function(req, res) {
 	// accept form post data
 	var newArticle = {
 		headline : req.body.headline,
-		time posted : req.body.timepost,
+		timepost : req.body.timepost,
 		skills : req.body.skills,
 		URL : req.body.photoUrl,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
-	// push newAstro object into the 'astronauts' array.
-	// this new astronaut will remain for as long as you 
+	// push newArticle object into the 'article' array.
+	// this new article will remain for as long as you 
 	articles.push(newArticle)
 
-	// redirect to the astronaut's page
+	// redirect to the article's page
 	res.redirect('/article/'+ newArticle.slug)
 
 }
 
 /*
-	Astronaut Data
+	Articles Data
 */ 
 
 var article= [];
 article.push({
 	slug : 'john_glenn',
 	headline : 'John Glenn',
-	time posted : 'July 18, 1921',
+	timepost : 'July 18, 1921',
 	twitter : ['Mercury-Atlas 6','STS-95'],
 	url : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	source : {
 		name : 'Wikipedia',
 		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
-	article text : 'Test pilot',
+	text : 'Test pilot',
 	category : false
 });
 
 article.push({
 	slug : 'john_glenn',
 	headline : 'John Glenn',
-	time posted : 'July 18, 1921',
+	timepost : 'July 18, 1921',
 	twitter : ['Mercury-Atlas 6','STS-95'],
 	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	source : {
 		name : 'Wikipedia',
 		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
-	article text : 'Test pilot',
+	text : 'Test pilot',
 	category : false
 });
 
 article.push({
 	slug : 'john_glenn',
 	headline : 'John Glenn',
-	time posted : 'July 18, 1921',
+	timepost : 'July 18, 1921',
 	twitter : ['Mercury-Atlas 6','STS-95'],
 	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	source : {
 		name : 'Wikipedia',
 		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
-	article text : 'Test pilot',
+	text : 'Test pilot',
 	category : false
 });
 
@@ -142,7 +142,7 @@ var getarticle = function(slug) {
 	for(a in article) {
 		var currentArticle = article[a];
 
-		// does current astronaut's id match requested id?
+		// does current article's id match requested id?
 		if (currentArticle.slug == slug) {
 			return currentArticle;
 		}

@@ -2,31 +2,32 @@
 
 	<div class="span6">
 
-		<h1>ExpressJS + Templates Demo</h1>
+		<h1>halberd alpha</h1>
 		
-		<img src="http://i.imgur.com/ASfCs.gif" alt="Space shuttle animated gif crossing an LA highway">
+		
+	<!--	<img src="http://youtu.be/QmNTKy8LJiY" alt="Space shuttle animated gif crossing an LA highway"> -->
 		
 		<hr>
 
 		<h3>{{pageTitle}}</h3>
 
-		{{#astros}}
+		{{#articles}}
 		<div class="row">
 			<div class="span4">
-				<a href="/astronauts/{{slug}}">{{name}}</a>
+				<a href="/articles/{{slug}}">{{name}}</a>
 			</div>
 		</div>
-		{{/astros}}
+		{{/articles}}
 
 		<hr>
 		<p>
-			<a href="/create">Create a new astronaut</a>
+			<a href="/create">Create a new article</a>
 		</p>
 	</div>
 
 	<!-- right column -->
 	<div class="span6">
-		<h3>The Demo</h3>
+		<h3>Based on</h3>
 		<li>
 			<a class="btn" href="https://github.com/johnschimmel/Heroku-ExpressJS-Boilerplate">Github Repo</a>
 		</li>

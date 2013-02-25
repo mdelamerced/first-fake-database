@@ -59,8 +59,8 @@ app.get('/', routes.index);
 app.get('/article/:article_id', routes.detail);
 
 //new astronaut routes
-app.get('/create',routes.astroForm); //display form
-app.post('/create',routes.createAstro); //form POST submits here
+app.get('/create',routes.articleForm); //display form
+app.post('/create',routes.createArticle); //form POST submits here
 
 
 // create NodeJS HTTP server using 'app'
