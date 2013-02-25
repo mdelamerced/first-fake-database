@@ -19,7 +19,7 @@ exports.index = function(req, res) {
 
 	var templateData = {
 		article : article,
-		pageName : "News Articles (" + article.length + ")"
+		pageTitle : "News Articles (" + article.length + ")"
 	}
 
 	res.render('index.html', templateData);
@@ -43,7 +43,7 @@ exports.detail = function(req, res) {
 	var templateData = {
 		article : currentArticle,
 		article : article,
-		pageName : currentArticle.name
+		pageTitle : currentArticle.name
 	}
 
 	res.render('detail.html', templateData);
