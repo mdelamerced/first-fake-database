@@ -11,13 +11,15 @@
 
 		<h3>{{pageTitle}}</h3>
 
-		{{#articles}}
+		{{#article}}
 		<div class="row">
 			<div class="span4">
-				<a href="/articles/{{slug}}">{{name}}</a>
+			<li>
+				<a href="/article/{{slug}}">{{name}}</a>
+			</li>
 			</div>
 		</div>
-		{{/articles}}
+		{{/article}}
 
 		<hr>
 		<p>

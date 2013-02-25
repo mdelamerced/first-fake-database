@@ -58,7 +58,7 @@ var routes = require('./routes/index.js');
 app.get('/', routes.index);
 app.get('/article/:article_id', routes.detail);
 
-//new astronaut routes
+//new article routes
 app.get('/create',routes.articleForm); //display form
 app.post('/create',routes.createArticle); //form POST submits here
 
