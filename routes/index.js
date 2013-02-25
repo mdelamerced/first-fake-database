@@ -18,8 +18,8 @@ exports.index = function(req, res) {
 	console.log("listings page requested");
 
 	var templateData = {
-		astros : astronauts,
-		pageTitle : "NASA Astronauts (" + astronauts.length + ")"
+		article : articles,
+		pageTitle : "News Articles (" + articles.length + ")"
 	}
 
 	res.render('index.html', templateData);
@@ -30,20 +30,20 @@ exports.index = function(req, res) {
 */
 exports.detail = function(req, res) {
 
-	console.log("detail page requested for " + req.params.astro_id);
+	console.log("detail page requested for " + req.params.article_id);
 
 	//get the requested astronaut by the param on the url :astro_id
-	var astro_id = req.params.astro_id;
-	var currentAstronaut = getAstronautById(astro_id);
+	var article_id = req.params.article_id;
+	var currentArticle = getArticleById(article_id);
 
-	if (!currentAstronaut) {
+	if (!currentArticle) {
 		res.status(404).render('404.html');
 	}
 
 	var templateData = {
-		astro : currentAstronaut,
-		astros : astronauts,
-		pageTitle : currentAstronaut.name
+		article : currentArticle,
+		article : articles,
+		pageTitle : currentArticle.name
 	}
 
 	res.render('detail.html', templateData);
@@ -52,10 +52,10 @@ exports.detail = function(req, res) {
 /*
 	GET /create
 */
-exports.astroForm = function(req, res){
+exports.articleForm = function(req, res){
 
 	var templateData = {
-		page_title : 'Enlist a new astronaut'
+		page_title : 'Add a new article'
 	};
 
 	res.render('create_form.html', templateData);
@@ -64,26 +64,26 @@ exports.astroForm = function(req, res){
 /*
 	POST /create
 */
-exports.createAstro = function(req, res) {
+exports.createArticle = function(req, res) {
 	
 	console.log("received form submission");
 	console.log(req.body);
 
 	// accept form post data
-	var newAstro = {
-		name : req.body.name,
-		birthdate : req.body.birthdate,
+	var newArticle = {
+		headline : req.body.headline,
+		time posted : req.body.timepost,
 		skills : req.body.skills,
-		photo : req.body.photoUrl,
-		slug : req.body.name.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
+		URL : req.body.photoUrl,
+		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
 	// push newAstro object into the 'astronauts' array.
 	// this new astronaut will remain for as long as you 
-	astronauts.push(newAstro)
+	articles.push(newArticle)
 
 	// redirect to the astronaut's page
-	res.redirect('/astronauts/'+ newAstro.slug)
+	res.redirect('/article/'+ newArticle.slug)
 
 }
 
@@ -91,62 +91,60 @@ exports.createAstro = function(req, res) {
 	Astronaut Data
 */ 
 
-var astronauts = [];
-astronauts.push({
+var article= [];
+article.push({
 	slug : 'john_glenn',
-	name : 'John Glenn',
-	birthdate : 'July 18, 1921',
-	missions : ['Mercury-Atlas 6','STS-95'],
+	headline : 'John Glenn',
+	time posted : 'July 18, 1921',
+	twitter : ['Mercury-Atlas 6','STS-95'],
+	url : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
+	source : {
+		name : 'Wikipedia',
+		url : 'http://en.wikipedia.org/wiki/John_Glenn'
+	},
+	article text : 'Test pilot',
+	category : false
+});
+
+article.push({
+	slug : 'john_glenn',
+	headline : 'John Glenn',
+	time posted : 'July 18, 1921',
+	twitter : ['Mercury-Atlas 6','STS-95'],
 	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	source : {
 		name : 'Wikipedia',
 		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
-	skills : 'Test pilot',
-	walkedOnMoon : false
+	article text : 'Test pilot',
+	category : false
 });
 
-astronauts.push({
-	slug : 'john_young',
-	name : 'John Young',
-	birthdate : 'September 24, 1930',
-	missions : ['Gemini 3','Gemini 10','Apollo 10', 'Apollo 16','STS-1','STS-9'
-],
-	photo : 'http://upload.wikimedia.org/wikipedia/commons/e/ef/Astronaut_John_Young_gemini_3.jpg',
+article.push({
+	slug : 'john_glenn',
+	headline : 'John Glenn',
+	time posted : 'July 18, 1921',
+	twitter : ['Mercury-Atlas 6','STS-95'],
+	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	source : {
 		name : 'Wikipedia',
-		url : 'http://en.wikipedia.org/wiki/John_Young_(astronaut)'
+		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
-	skills : 'Test pilot',
-	walkedOnMoon : true
+	article text : 'Test pilot',
+	category : false
 });
 
-astronauts.push({
-	slug : 'sunita_williams',
-	name : 'Sunita Williams',
-	birthdate : 'September 19, 1965',
-	missions : ['STS-116', 'STS-117', 'Expedition 14', 'Expedition 15', 'Soyuz TMA-05M', 'Expedition 32'],
-	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sunita_Williams.jpg/480px-Sunita_Williams.jpg',
-	source : {
-		name : 'Wikipedia',
-		url : 'http://en.wikipedia.org/wiki/Sunita_Williams'
-	},
-	skills : 'Test pilot',
-	walkedOnMoon : false
-});
-
-
-// Look up an astronaut by id
+// Look up an article by id
 // accepts an 'id' parameter
-// loops through all astronauts, checks 'id' property
-// returns found astronaut or returns false is not found
-var getAstronautById = function(slug) {
-	for(a in astronauts) {
-		var currentAstro = astronauts[a];
+// loops through all articles, checks 'id' property
+// returns found article or returns false is not found
+var getarticle = function(slug) {
+	for(a in article) {
+		var currentArticle = article[a];
 
 		// does current astronaut's id match requested id?
-		if (currentAstro.slug == slug) {
-			return currentAstro;
+		if (currentArticle.slug == slug) {
+			return currentArticle;
 		}
 	}
 
