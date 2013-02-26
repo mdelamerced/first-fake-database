@@ -43,7 +43,7 @@ exports.detail = function(req, res) {
 	var templateData = {
 		article : currentArticle,
 		article : article,
-		pageTitle : currentArticle.name
+		pageTitle : currentArticle.headline
 	}
 
 	res.render('detail.html', templateData);
@@ -74,7 +74,7 @@ exports.createArticle = function(req, res) {
 		headline : req.body.headline,
 		timepost : req.body.timepost,
 		skills : req.body.skills,
-		URL : req.body.photoUrl,
+		URL : req.body.url,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
@@ -97,13 +97,13 @@ article.push({
 	headline : 'JOHNSON WINS 2ND DAYTONA 500; PATRICK FINISHES 8TH',
 	timepost : 'Feb 24, 8:11 PM EST',
 	twitter : ['@apnews'],
-	photo : 'http://hosted.ap.org/dynamic/stories/C/CAR_NASCAR_DAYTONA_500?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2013-02-24-20-11-36',
+	url : 'http://hosted.ap.org/dynamic/stories/C/CAR_NASCAR_DAYTONA_500?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2013-02-24-20-11-36',
 	source : {
 		name : 'Wikipedia',
 		url : 'http://en.wikipedia.org/wiki/John_Glenn'
 	},
 	text : 'Test pilot',
-	category : false
+	//category : false
 });
 
 article.push({
