@@ -18,8 +18,8 @@ exports.index = function(req, res) {
 	console.log("listings page requested");
 
 	var templateData = {
-		article : article,
-		pageTitle : "News Articles (" + article.length + ")"
+		article : articles,
+		pageTitle : "News Articles (" + articles.length + ")"
 	}
 
 	res.render('index.html', templateData);
@@ -42,7 +42,7 @@ exports.detail = function(req, res) {
 
 	var templateData = {
 		article : currentArticle,
-		article : article,
+		article : articles,
 		pageTitle : currentArticle.headline
 	}
 
@@ -91,8 +91,8 @@ exports.createArticle = function(req, res) {
 	Articles Data
 */ 
 
-var article= [];
-article.push({
+var articles= [];
+articles.push({
 	slug : 'johnson_wins_2nd_daytona_500_patrick_finishes_8th',
 	headline : 'JOHNSON WINS 2ND DAYTONA 500; PATRICK FINISHES 8TH',
 	timepost : 'Feb 24, 8:11 PM EST',
@@ -106,7 +106,7 @@ article.push({
 	//category : false
 });
 
-article.push({
+articles.push({
 	slug : 'john_glenn',
 	headline : 'John Glenn',
 	timepost : 'July 18, 1921',
@@ -120,7 +120,7 @@ article.push({
 	category : false
 });
 
-article.push({
+articles.push({
 	slug : 'john_glenn',
 	headline : 'John Glenn',
 	timepost : 'July 18, 1921',
@@ -138,9 +138,9 @@ article.push({
 // accepts an 'id' parameter
 // loops through all articles, checks 'id' property
 // returns found article or returns false is not found
-var getarticle = function(slug) {
-	for(a in article) {
-		var currentArticle = article[a];
+var getArticleById = function(slug) {
+	for(a in articles) {
+		var currentArticle = articles[a];
 
 		// does current article's id match requested id?
 		if (currentArticle.slug == slug) {
