@@ -75,6 +75,8 @@ exports.createArticle = function(req, res) {
 		timepost : req.body.timepost,
 		text : req.body.text,
 		URL : req.body.url,
+		twitter : req.body.twitter,
+		photo : req.body.photo,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
@@ -104,19 +106,20 @@ articles.push({
 });
 
 articles.push({
-	slug : 'john_glenn',
-	headline : "The Vatican Just Deleted All of Pope's Tweets",
-	timepost : '3:10 PM ET',
-	twitter : ['Mercury-Atlas 6','STS-95'],
-	url : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
-	text : 'Test pilot',
-	category : false
+	slug : 'ny_cannibalsim',
+	headline : "WITNESS: NYC OFFICER EYED COLLEAGUE FOR KIDNAP",
+	timepost : 'Feb. 28 3:42 PM EST',
+	twitter : 'ap',
+	photo: 'http://binaryapi.ap.org/256809aaaaf448f98177ea4dc1eecdba/460x.jpg',
+	url : 'http://bigstory.ap.org/article/its-reality-vs-fantasy-ny-cannibalism-trial',
+	text : 'NEW YORK (AP) — The cannibalism case against a police officer took another macabre turn on Thursday when an FBI agent testified that a New York Police Department supervisor was among the women the officer considered a potential target for a kidnap and torture.',
+	category : true
 });
 
 articles.push({
 	slug : 'The_Vatican_Just_Deleted_All_of_Pope Benedicts_Tweets',
 	headline : "The Vatican Just Deleted All of Pope's Tweets",
-	timepost : '3:10 PM ET',
+	timepost : 'Feb. 28 3:10 PM ET',
 	twitter : 'pontifex',
 	photo : "http://cdn.theatlanticwire.com/img/upload/2013/02/28/twitter1/large.jpg",
 	url: 'http://www.theatlanticwire.com/technology/2013/02/vatican-just-deleted-all-pope-benedicts-tweets/62640/',
