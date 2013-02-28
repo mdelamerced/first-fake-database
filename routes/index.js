@@ -19,7 +19,7 @@ exports.index = function(req, res) {
 
 	var templateData = {
 		article : articles,
-		pageTitle : "News Articles (" + articles.length + ")"
+		pageTitle : "Available Articles (" + articles.length + ")"
 	}
 
 	res.render('index.html', templateData);
@@ -74,9 +74,10 @@ exports.createArticle = function(req, res) {
 		headline : req.body.headline,
 		timepost : req.body.timepost,
 		text : req.body.text,
-		URL : req.body.url,
+		urlA : req.body.urlA,
 		twitter : req.body.twitter,
 		photo : req.body.photo,
+		category : req.body.category,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
@@ -100,7 +101,7 @@ articles.push({
 	timepost : 'Feb 24, 8:11 PM EST',
 	twitter : 'ap',
 	photo: 'http://hosted.ap.org/photos/B/bfee081e-36e7-48df-b9e3-03f508ee0112-big.jpg',
-	url : 'http://hosted.ap.org/dynamic/stories/C/CAR_NASCAR_DAYTONA_500?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2013-02-24-20-11-36',
+	urlA : 'http://hosted.ap.org/dynamic/stories/C/CAR_NASCAR_DAYTONA_500?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2013-02-24-20-11-36',
 	text : 'Jimmie Johnson went two years without a title and suddenly became an afterthought at the Daytona 500.',
 	category : false
 });
@@ -111,7 +112,7 @@ articles.push({
 	timepost : 'Feb. 28 3:42 PM EST',
 	twitter : 'ap',
 	photo: 'http://binaryapi.ap.org/256809aaaaf448f98177ea4dc1eecdba/460x.jpg',
-	url : 'http://bigstory.ap.org/article/its-reality-vs-fantasy-ny-cannibalism-trial',
+	urlA : 'http://bigstory.ap.org/article/its-reality-vs-fantasy-ny-cannibalism-trial',
 	text : 'NEW YORK (AP) — The cannibalism case against a police officer took another macabre turn on Thursday when an FBI agent testified that a New York Police Department supervisor was among the women the officer considered a potential target for a kidnap and torture.',
 	category : true
 });
@@ -122,7 +123,7 @@ articles.push({
 	timepost : 'Feb. 28 3:10 PM ET',
 	twitter : 'pontifex',
 	photo : "http://cdn.theatlanticwire.com/img/upload/2013/02/28/twitter1/large.jpg",
-	url: 'http://www.theatlanticwire.com/technology/2013/02/vatican-just-deleted-all-pope-benedicts-tweets/62640/',
+	urlA: 'http://www.theatlanticwire.com/technology/2013/02/vatican-just-deleted-all-pope-benedicts-tweets/62640/',
 	text : 'They have replaced his name with "Sede Vacante," the Latin term used to indicate the time periods when there is no pope. (Literally: "the seat being vacant.") The @Pontifex handle remains quiet, awaiting its new owner.',
 	category : true
 });

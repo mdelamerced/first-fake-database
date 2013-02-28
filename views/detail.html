@@ -6,7 +6,7 @@
 		<img src="{{article_n.photo}}" alt="photo {{article_n.headline}}" class="img-polaroid" width="320px"><br>
 		<div>
 		Time Posted: {{article_n.timepost}}<br>
-		URL: <a href = '{{article_n.url}}'> Link to original page</a> <br>
+		URL: <a href = '{{article_n.urlA}}'> Link to original article</a> <br>
 		Twitter: <a href=' http://www.twitter.com/{{article_n.twitter}}'> {{article_n.twitter}}</a><br>
 		</div>
 	</div>
@@ -31,6 +31,8 @@
 
 	<!-- third column w/ listings -->
 	<div class="span4">
+	
+		<a href='/'>Back to the front page </a>
 		<h3>Available stories</h3>
 		<hr>
 		{{#article}}
