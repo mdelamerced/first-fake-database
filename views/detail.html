@@ -3,49 +3,29 @@
 	<!-- first column w/ image-->
 	<div class="span4">
 	<h2>{{article_n.headline}}</h2>
-		<img src="{{article.photo}}" alt="photo {{article.headline}}" class="img-polaroid" width="320px"><br>
-		
-		<!--source: 
-		<a href="{{article.source.url}}" class="small">
-			{{articles.source.headline}}
-		</a>-->
+		<img src="{{article_n.photo}}" alt="photo {{article_n.headline}}" class="img-polaroid" width="320px"><br>
 		<div>
 		Time Posted: {{article_n.timepost}}<br>
-		URL: {{articles.url}}<br>
-		Twitter: {{article_n.twitter}}<br>
+		URL: <a href = '{{article_n.url}}'> Link to original page</a> <br>
+		Twitter: <a href=' http://www.twitter.com/{{article_n.twitter}}'> {{article_n.twitter}}</a><br>
 		</div>
 	</div>
 	
 	<!-- second column w/ details-->
 	<div class="span4">
-		<h1>{{article_n.headline}}</h1>
-		<hr>
-
-		<div>
-		<!--	Time Posted: {{articles.timepost}}<br>-->
-
-					
-			Text: {{article_n.text}}<br>
-			
-		</div>
-			
-	<!--		Missions:
-			<ul>
-				{{#article.missions}}
-				<li>{{.}}</li>
-				{{/article.missions}}
-				{{^article.missions}}
-				No missions yet.
-				{{/article.missions}}
-			</ul>
-		</div> -->
-<!-- look at the hastag, it's boolean -->
 		{{#article_n.category}}
 		<div>
 			<h3>BREAKING NEWS</h3>
-			<!--<img src="http://gifs.gifbin.com/062009/1246007745_michael_moonwalking.gif" alt="moonwalking animated gif with michael jackson">-->
 		</div>
 		{{/article_n.category}}
+		
+		<hr>
+		<div>
+	
+			{{article_n.text}}<br>
+			
+		</div>
+<!-- look at the hastag, it's boolean -->
 
 	</div>
 

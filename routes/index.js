@@ -73,14 +73,14 @@ exports.createArticle = function(req, res) {
 	var newArticle = {
 		headline : req.body.headline,
 		timepost : req.body.timepost,
-		skills : req.body.skills,
+		text : req.body.text,
 		URL : req.body.url,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	}
 
 	// push newArticle object into the 'article' array.
 	// this new article will remain for as long as you 
-	article.push(newArticle)
+	articles.push(newArticle)
 
 	// redirect to the article's page
 	res.redirect('/article/'+ newArticle.slug)
@@ -96,42 +96,32 @@ articles.push({
 	slug : 'johnson_wins_2nd_daytona_500_patrick_finishes_8th',
 	headline : 'JOHNSON WINS 2ND DAYTONA 500; PATRICK FINISHES 8TH',
 	timepost : 'Feb 24, 8:11 PM EST',
-	twitter : '@apnews',
+	twitter : 'ap',
+	photo: 'http://hosted.ap.org/photos/B/bfee081e-36e7-48df-b9e3-03f508ee0112-big.jpg',
 	url : 'http://hosted.ap.org/dynamic/stories/C/CAR_NASCAR_DAYTONA_500?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2013-02-24-20-11-36',
-	source : {
-		name : 'Wikipedia',
-		url : 'http://en.wikipedia.org/wiki/John_Glenn'
-	},
+	text : 'Jimmie Johnson went two years without a title and suddenly became an afterthought at the Daytona 500.',
+	category : false
+});
+
+articles.push({
+	slug : 'john_glenn',
+	headline : "The Vatican Just Deleted All of Pope's Tweets",
+	timepost : '3:10 PM ET',
+	twitter : ['Mercury-Atlas 6','STS-95'],
+	url : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
 	text : 'Test pilot',
+	category : false
+});
+
+articles.push({
+	slug : 'The_Vatican_Just_Deleted_All_of_Pope Benedicts_Tweets',
+	headline : "The Vatican Just Deleted All of Pope's Tweets",
+	timepost : '3:10 PM ET',
+	twitter : 'pontifex',
+	photo : "http://cdn.theatlanticwire.com/img/upload/2013/02/28/twitter1/large.jpg",
+	url: 'http://www.theatlanticwire.com/technology/2013/02/vatican-just-deleted-all-pope-benedicts-tweets/62640/',
+	text : 'They have replaced his name with "Sede Vacante," the Latin term used to indicate the time periods when there is no pope. (Literally: "the seat being vacant.") The @Pontifex handle remains quiet, awaiting its new owner.',
 	category : true
-});
-
-articles.push({
-	slug : 'john_glenn',
-	headline : 'John Glenn',
-	timepost : 'July 18, 1921',
-	twitter : ['Mercury-Atlas 6','STS-95'],
-	utl : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
-	source : {
-		name : 'Wikipedia',
-		url : 'http://en.wikipedia.org/wiki/John_Glenn'
-	},
-	text : 'Test pilot',
-	category : false
-});
-
-articles.push({
-	slug : 'john_glenn',
-	headline : 'John Glenn',
-	timepost : 'July 18, 1921',
-	twitter : ['Mercury-Atlas 6','STS-95'],
-	photo : 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPN-2000-001027.jpg/394px-GPN-2000-001027.jpg',
-	source : {
-		name : 'Wikipedia',
-		url : 'http://en.wikipedia.org/wiki/John_Glenn'
-	},
-	text : 'Test pilot',
-	category : false
 });
 
 // Look up an article by id
