@@ -5,12 +5,12 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
     slug : { type: String, lowercase: true, unique: true },
 	headline : String,
-	timepost : Date, Time,
+	timepost : Date,
 	twitter : String,
 	urlA : String,
-	photo : String,
+	photo : [String],
 	text : String,
-	skills : String,
+	//skills : String,
 	category : Boolean,
 	
     lastupdated : { type: Date, default: Date.now }

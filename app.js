@@ -2,10 +2,11 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose');
+
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose');
 
 // the ExpressJS App
 var app = express();
@@ -62,7 +63,7 @@ app.get('/article/:article_id', routes.detail);
 app.get('/create',routes.articleForm); //display form
 app.post('/create',routes.createArticle); //form POST submits here
 
-
+app.get('/loadarticles', routes.loadData); 
 // create NodeJS HTTP server using 'app'
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

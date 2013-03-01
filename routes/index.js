@@ -38,6 +38,8 @@ exports.index = function(req, res) {
 
 		res.render('index.html', templateData);
 	});
+	
+}
 
 
 /*
@@ -85,7 +87,7 @@ exports.detail = function(req, res) {
 		//query for all astronauts, return only name and slug
 		articleModel.find({}, 'name slug', function(err, articles){
 
-			console.log("retrieved all astronauts : " + articles.length);
+			console.log("retrieved these articles : " + articles.length);
 
 			//prepare template data for view
 			var templateData = {
@@ -122,12 +124,14 @@ exports.detail = function(req, res) {
 	GET /create
 */
 exports.articleForm = function(req, res){
-	var article_id = req.params.article_id;
-	var currentArticle = getArticleById(article_id);
-
+/*
+	
+	
 /*	if (!currentArticle) {
 		res.status(404).render('404.html');
 	}*/
+	var article_id = req.params.article_id;
+	var currentArticle = getArticleById(article_id);
 
 	var templateData = {
 		page_title : 'Add a new article',
@@ -148,7 +152,7 @@ exports.createArticle = function(req, res) {
 	console.log(req.body);
 
 	// accept form post data
-	var newArticle = {
+	var newArticle = new articleModel({
 		headline : req.body.headline,
 		timepost : req.body.timepost,
 		text : req.body.text,
@@ -157,7 +161,83 @@ exports.createArticle = function(req, res) {
 		photo : req.body.photo,
 		category : req.body.category,
 		slug : req.body.headline.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
+	});
+	
+	// you can also add properties with the . (dot) notation
+	
+	newArticle.timepost = moment(req.body.timepost);
+	newArticle.text = req.body.text.split(",");
+
+	// walked on moon checkbox
+	if (req.body.category) {
+		newArticle.category = true;
+		
+	/*	else;
+		
+		newArticle.category = false;*/
 	}
+	
+	// save the newArticle to the database
+	newArticle.save(function(err){
+		if (err) {
+			console.error("Error on saving new article");
+			console.error("err");
+			return res.send("There was an error when creating a new article");
+
+		} else {
+			console.log("Created a new article!");
+			console.log(newArticle);
+			
+			// redirect to the article's page
+			res.redirect('/article/'+ newArticle.slug)
+		}
+	});
+}
+
+exports.loadData = function(req, res) {
+
+	// load initial astronauts into the database
+	for(a in articles) {
+
+		//get loop's current astronuat
+		currArticle = articles[a];
+
+		// prepare astronaut for database
+		tmpArtic = new articleModel();
+		tmpArtic.slug = currArticle.slug;
+		tmpArtic.headline = currArticle.headline;
+		tmpArtic.twitter = currArticle.twitter;
+		tmpArtic.text = currArticle.text;
+		tmpArtic.urlA = currArticle.urlA;
+		tmpArtic.category = currArticle.category;
+		
+		// convert currArticle's birthdate string into a native JS date with moment
+		// http://momentjs.com/docs/#/parsing/string/
+		tmpArtic.timepost = moment(currArticle.timepost); 
+
+		// convert currArticle's string of skills into an array of strings
+		tmpArtic.photo = currArticle.photo.split(",");
+
+		// save tmpArtic to database
+		tmpArtic.save(function(err){
+			// if an error occurred on save.
+			if (err) {
+				console.error("error on save");
+				console.error(err);
+			} else {
+				console.log("Article loaded/saved in database");
+			}
+		});
+
+	} //end of for-in loop
+
+	// respond to browser
+	return res.send("loaded articles");
+
+} // end of loadData function
+
+
+/*	
 
 	// push newArticle object into the 'article' array.
 	// this new article will remain for as long as you 
@@ -167,7 +247,7 @@ exports.createArticle = function(req, res) {
 	res.redirect('/article/'+ newArticle.slug)
 
 }
-
+*/
 /*
 	Articles Data
 */ 
@@ -192,7 +272,7 @@ articles.push({
 	photo: 'http://binaryapi.ap.org/256809aaaaf448f98177ea4dc1eecdba/460x.jpg',
 	urlA : 'http://bigstory.ap.org/article/its-reality-vs-fantasy-ny-cannibalism-trial',
 	text : 'NEW YORK (AP) — The cannibalism case against a police officer took another macabre turn on Thursday when an FBI agent testified that a New York Police Department supervisor was among the women the officer considered a potential target for a kidnap and torture.',
-	category : true
+	category : false
 });
 
 articles.push({
