@@ -13,10 +13,34 @@
 /*
 	GET /
 */
+
+
+var moment = require("moment"); // date manipulation library
+var articleModel = require("../models/article.js"); //db model
+
+
 exports.index = function(req, res) {
 	
-	console.log("listings page requested");
+	console.log("main requested");
+	
+	articleModel.find({}, 'name slug source', function(err, articles){
+	
+		if (err) {
+			res.send("Unable to query database for articles").status(500);
+		};
 
+		console.log("retrieved " + articles.length + " articles from database");
+
+		var templateData = {
+			article : articles,
+		pageTitle : "Available Articles (" + articles.length + ")"
+		}
+
+		res.render('index.html', templateData);
+	});
+
+
+/*
 	var templateData = {
 		article : articles,
 		pageTitle : "Available Articles (" + articles.length + ")"
@@ -24,7 +48,7 @@ exports.index = function(req, res) {
 
 	res.render('index.html', templateData);
 }
-
+*/
 /*
 	GET /article/:article_id
 */
@@ -32,10 +56,55 @@ exports.detail = function(req, res) {
 
 	console.log("detail page requested for " + req.params.article_id);
 
-	//get the requested article by the param on the url :astro_id
+	//get the requested article by the param on the url :article_id
 	var article_id = req.params.article_id;
-	var currentArticle = getArticleById(article_id);
+	
+	//query the db
+	articleModel.findOne({slug:article_id}, function(err, currentArticle){
 
+	var currentArticle = getArticleById(article_id);
+	
+	if (err) {
+			return res.status(500).send("There was an error on the article query");
+		}
+		
+		if (currentArticle == null) {
+			return res.status(404).render('404.html');
+		}
+
+		console.log("I've found what you're looking for.");
+		console.log(currentArticle.headline);
+
+		// formattimePost function for currentArticle
+		currentArticle.formattedTimepost = function() {
+			// formatting a JS date with moment
+			// http://momentjs.com/docs/#/displaying/format/
+            return moment(this.timepost).format("dddd, MMMM Do YYYY");
+        };
+		
+		//query for all astronauts, return only name and slug
+		articleModel.find({}, 'name slug', function(err, articles){
+
+			console.log("retrieved all astronauts : " + articles.length);
+
+			//prepare template data for view
+			var templateData = {
+				article_n : currentArticle,
+				article : articles,
+				pageTitle : currentArticle.headline
+			}
+
+			// render and return the template
+			res.render('detail.html', templateData);
+
+
+		}) // end of .find (all) query
+		
+	}); // end of .findOne query
+
+}
+
+/*
 	if (!currentArticle) {
 		res.status(404).render('404.html');
 	}
@@ -48,7 +117,7 @@ exports.detail = function(req, res) {
 
 	res.render('detail.html', templateData);
 }
-
+*/
 /*
 	GET /create
 */

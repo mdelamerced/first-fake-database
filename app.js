@@ -2,10 +2,11 @@
 /**
  * Module dependencies.
  */
-
+var mongoose = require('mongoose');
 var express = require('express');
 var http = require('http');
 var path = require('path');
+
 // the ExpressJS App
 var app = express();
 
@@ -32,7 +33,7 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 
   // database - skipping until week 5
-  // app.db = mongoose.connect(process.env.MONGOLAB_URI);
+  app.db = mongoose.connect(process.env.MONGOLAB_URI);
   
 });
 
