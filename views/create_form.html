@@ -39,4 +39,18 @@
 
 		</form>
 	</div>
+<div class="span4">
+	
+		<a href='/'>Back to the front page </a>
+		<h3>Available stories</h3>
+		<hr>
+		{{#article}}
+		<li>
+			<a href="/article/{{slug}}">{{headline}}</a>
+		</li>
+		{{/article}}
+
+		<br>
+	</div>
+	
 </div>

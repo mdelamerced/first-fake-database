@@ -53,9 +53,18 @@ exports.detail = function(req, res) {
 	GET /create
 */
 exports.articleForm = function(req, res){
+	var article_id = req.params.article_id;
+	var currentArticle = getArticleById(article_id);
+
+/*	if (!currentArticle) {
+		res.status(404).render('404.html');
+	}*/
 
 	var templateData = {
-		page_title : 'Add a new article'
+		page_title : 'Add a new article',
+		article_n : currentArticle,
+		article : articles,
+		pageTitle : currentArticle.headline
 	};
 
 	res.render('create_form.html', templateData);

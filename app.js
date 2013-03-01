@@ -6,7 +6,6 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-
 // the ExpressJS App
 var app = express();
 
