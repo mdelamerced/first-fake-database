@@ -8,7 +8,7 @@ var ArticleSchema = new Schema({
 	timepost : Date,
 	twitter : String,
 	urlA : String,
-	photo : [String],
+	photo : String,
 	text : String,
 	//skills : String,
 	category : Boolean,
